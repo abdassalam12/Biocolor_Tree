@@ -1,0 +1,10 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: ArbreNoirRouge
+Description: Bibliothèque pour la gestion des arbres rouges et noirs
+Version: 
+Libs: -L${libdir} -larbre_noir_rouge
+Cflags: -I${includedir}

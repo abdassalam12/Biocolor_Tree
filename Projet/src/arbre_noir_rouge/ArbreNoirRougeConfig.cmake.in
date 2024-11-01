@@ -1,0 +1,6 @@
+@PACKAGE_INIT@
+
+set(ArbreNoirRouge_INCLUDE_DIRS "@CMAKE_INSTALL_PREFIX@/include")
+set(ArbreNoirRouge_LIBRARIES "@CMAKE_INSTALL_PREFIX@/lib/libarbre_noir_rouge.so")
+
+# Add any additional dependencies here
