@@ -63,26 +63,24 @@ else()
     message(WARNING "Le fichier ArbreNoirRougeConfig.cmake.in est manquant.")
 endif()
 
+# Nom du projet
+project(BiocolorTree)
 
+# Spécifier la norme C
+set(CMAKE_C_STANDARD 99)
 
-
-
-
-
-# Ajout d'un exécutable de test
-add_executable(test-arbre_noir_rouge 
+# Fichiers sources
+set(SRC_FILES
     test-arbre_noir_rouge.c
+    Insert.c
+    Delete.c
+    Rotation.c
+    arbre_noir_rouge.c
 )
 
-# Préciser l'ordre de construction
-add_dependencies(test-arbre_noir_rouge arbre_noir_rouge)
+# Créer l'exécutable à partir des fichiers sources
+add_executable(test-arbre_noir_rouge ${SRC_FILES})
 
-# Lier la bibliothèque avec l'exécutable de test
-target_link_libraries(test-arbre_noir_rouge arbre_noir_rouge)
+# Ajouter des options de compilation (par exemple, activer les warnings)
+target_compile_options(test-arbre_noir_rouge PRIVATE -Wall)
 
-# Activer les tests
-enable_testing()
-
-# Ajouter un test
-add_test(NAME test-arbre_noir_rouge COMMAND test-arbre_noir_rouge)
-target_link_libraries(test-arbre_noir_rouge arbre_noir_rouge)

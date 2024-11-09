@@ -1,30 +1,65 @@
-#ifndef ARBRE_NOIR_ROUGE_H
-#define ARBRE_NOIR_ROUGE_H
+/*
+ * Copyright (c) 2019 xieqing. https://github.com/xieqing
+ * May be freely redistributed, but copyright notice must be retained.
+ */
 
-typedef enum { RED, BLACK } Color;
+#ifndef _RB_HEADER
+#define _RB_HEADER
 
-// Structure pour un nœud de l'arbre rouge-noir
-typedef struct Node {
-    int key;                     // La clé du nœud
-    Color color;                // Couleur du nœud
-    struct Node* left;          // Pointeur vers le fils gauche
-    struct Node* right;         // Pointeur vers le fils droit
-    struct Node* parent;        // Pointeur vers le parent
-} Node;
+#define RB_DUP 1
+#define RB_MIN 1
 
-// Structure pour l'arbre rouge-noir
+#define RED 0
+#define BLACK 1
+
+enum rbtraversal {
+	PREORDER,
+	INORDER,
+	POSTORDER
+};
+
+typedef struct rbnode {
+	struct rbnode *left;
+	struct rbnode *right;
+	struct rbnode *parent;
+	char color;
+	void *data;
+} rbnode;
+
 typedef struct {
-    Node* root;                 // Racine de l'arbre
-    Node* TNULL;                // Nœud nul, utilisé pour la gestion des nœuds
-} RBTree;
+	int (*compare)(const void *, const void *);
+	void (*print)(void *);
+	void (*destroy)(void *);
 
-// Prototypes de fonctions
-RBTree* createRBTree();
-Node* createNode(int key);
-void leftRotate(RBTree* tree, Node* x);
-void rightRotate(RBTree* tree, Node* y);
-void insert(RBTree* tree, int key);
-void deleteNode(RBTree* tree, int key);
-void printTree(RBTree* tree);
+	rbnode root;
+	rbnode nil;
 
-#endif // ARBRE_NOIR_ROUGE_H
+	#ifdef RB_MIN
+	rbnode *min;
+	#endif
+} rbtree;
+
+#define RB_ROOT(rbt) (&(rbt)->root)
+#define RB_NIL(rbt) (&(rbt)->nil)
+#define RB_FIRST(rbt) ((rbt)->root.left)
+#define RB_MINIMAL(rbt) ((rbt)->min)
+
+#define RB_ISEMPTY(rbt) ((rbt)->root.left == &(rbt)->nil && (rbt)->root.right == &(rbt)->nil)
+#define RB_APPLY(rbt, f, c, o) rbapply_node((rbt), (rbt)->root.left, (f), (c), (o))
+
+rbtree *rb_create(int (*compare_func)(const void *, const void *), void (*destroy_func)(void *));
+void rb_destroy(rbtree *rbt);
+
+rbnode *rb_find(rbtree *rbt, void *data);
+rbnode *rb_successor(rbtree *rbt, rbnode *node);
+
+int rb_apply_node(rbtree *rbt, rbnode *node, int (*func)(void *, void *), void *cookie, enum rbtraversal order);
+void rb_print(rbtree *rbt, void (*print_func)(void *));
+
+rbnode *rb_insert(rbtree *rbt, void *data);
+void *rb_delete(rbtree *rbt, rbnode *node, int keep);
+
+int rb_check_order(rbtree *rbt, void *min, void *max);
+int rb_check_black_height(rbtree *rbt);
+
+#endif /* _RB_HEADER */

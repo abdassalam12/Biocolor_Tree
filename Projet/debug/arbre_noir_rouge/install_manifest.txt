@@ -1,4 +1,0 @@
-/mnt/c/Users/Destock Afric/Desktop/Cmake/TP1/TP-hash-etudiants/TP-hash-etudiants/debug/tmp/lib/libarbre_noir_rouge.so
-/mnt/c/Users/Destock Afric/Desktop/Cmake/TP1/TP-hash-etudiants/TP-hash-etudiants/debug/tmp/include/arbre_noir_rouge.h
-/mnt/c/Users/Destock Afric/Desktop/Cmake/TP1/TP-hash-etudiants/TP-hash-etudiants/debug/tmp/share/pkgconfig/arbre_noir_rouge.pc
-/mnt/c/Users/Destock Afric/Desktop/Cmake/TP1/TP-hash-etudiants/TP-hash-etudiants/debug/tmp/cmake/ArbreNoirRougeConfig.cmake
